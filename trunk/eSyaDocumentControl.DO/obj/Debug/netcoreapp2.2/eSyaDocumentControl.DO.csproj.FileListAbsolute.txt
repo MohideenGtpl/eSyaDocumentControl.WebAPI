@@ -1,0 +1,9 @@
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\bin\Debug\netcoreapp2.2\eSyaDocumentControl.DO.deps.json
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\bin\Debug\netcoreapp2.2\eSyaDocumentControl.DO.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\bin\Debug\netcoreapp2.2\eSyaDocumentControl.DO.pdb
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\obj\Debug\netcoreapp2.2\eSyaDocumentControl.DO.csprojAssemblyReference.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\obj\Debug\netcoreapp2.2\eSyaDocumentControl.DO.csproj.CoreCompileInputs.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\obj\Debug\netcoreapp2.2\eSyaDocumentControl.DO.AssemblyInfoInputs.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\obj\Debug\netcoreapp2.2\eSyaDocumentControl.DO.AssemblyInfo.cs
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\obj\Debug\netcoreapp2.2\eSyaDocumentControl.DO.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DO\obj\Debug\netcoreapp2.2\eSyaDocumentControl.DO.pdb

@@ -1,0 +1,16 @@
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.DL.deps.json
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.DL.runtimeconfig.json
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.DL.runtimeconfig.dev.json
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.DL.dll
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.DL.pdb
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.DO.dll
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.IF.dll
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.DO.pdb
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\bin\Release\netcoreapp2.2\eSyaDocumentControl.IF.pdb
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\obj\Release\netcoreapp2.2\eSyaDocumentControl.DL.csprojAssemblyReference.cache
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\obj\Release\netcoreapp2.2\eSyaDocumentControl.DL.csproj.CoreCompileInputs.cache
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\obj\Release\netcoreapp2.2\eSyaDocumentControl.DL.AssemblyInfoInputs.cache
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\obj\Release\netcoreapp2.2\eSyaDocumentControl.DL.AssemblyInfo.cs
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\obj\Release\netcoreapp2.2\eSyaDocumentControl.DL.csproj.CopyComplete
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\obj\Release\netcoreapp2.2\eSyaDocumentControl.DL.dll
+D:\eSya Project\Solution\Project_eSyaWebAPI\eSyaDocumentControl.WebAPI\trunk\eSyaDocumentControl.DL\obj\Release\netcoreapp2.2\eSyaDocumentControl.DL.pdb

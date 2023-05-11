@@ -1,0 +1,16 @@
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.DL.deps.json
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.DL.runtimeconfig.json
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.DL.runtimeconfig.dev.json
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.DL.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.DL.pdb
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.DO.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.IF.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.DO.pdb
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\bin\Debug\netcoreapp2.2\HCP.DocumentControl.IF.pdb
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\obj\Debug\netcoreapp2.2\HCP.DocumentControl.DL.csprojAssemblyReference.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\obj\Debug\netcoreapp2.2\HCP.DocumentControl.DL.csproj.CoreCompileInputs.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\obj\Debug\netcoreapp2.2\HCP.DocumentControl.DL.AssemblyInfoInputs.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\obj\Debug\netcoreapp2.2\HCP.DocumentControl.DL.AssemblyInfo.cs
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\obj\Debug\netcoreapp2.2\HCP.DocumentControl.DL.csproj.CopyComplete
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\obj\Debug\netcoreapp2.2\HCP.DocumentControl.DL.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.DL\obj\Debug\netcoreapp2.2\HCP.DocumentControl.DL.pdb

@@ -1,0 +1,596 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using eSyaDocumentControl.DL.Entities;
+using eSyaDocumentControl.DO;
+using eSyaDocumentControl.IF;
+using Microsoft.EntityFrameworkCore;
+
+namespace eSyaDocumentControl.DL.Repository
+{
+   public class DocumentControlRepository:IDocumentControlRepository
+    {
+
+       #region Document Control Normal Mode 
+        public async Task<List<DO_DocumentControlMaster>> GetActiveDocuments()
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+                    var ds = db.GtDccnst.Where(x => x.ActiveStatus == true)
+                        .Select(r => new DO_DocumentControlMaster
+                        {
+                            DocumentId = r.DocumentId,
+                            DocumentDesc = r.DocumentDesc
+                        }).OrderBy(o => o.DocumentDesc).ToListAsync();
+
+                    return await ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<DO_DocumentControlNormalMode>> GetDocumentControlNormalModebyBusinessKey(int businesskey)
+
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+
+                    var ds = db.GtDncn01.Where(x => x.BusinessKey == businesskey).Join(db.GtDccnst,
+                      x => x.DocumentId,
+                      y => y.DocumentId,
+                      (x, y) => new DO_DocumentControlNormalMode
+                      {
+                          BusinessKey = x.BusinessKey,
+                          DocumentId = x.DocumentId,
+                          FinancialYear = x.FinancialYear,
+                          StartDocNumber = x.StartDocNumber,
+                          CurrentDocNumber = x.CurrentDocNumber,
+                          CurrentDocDate = x.CurrentDocDate,
+                          ActiveStatus = x.ActiveStatus,
+                          DocumentName = y.DocumentDesc
+
+                      }).ToListAsync();
+
+                    return await ds;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<DO_ReturnParameter> InsertDocumentControlNormalMode(DO_DocumentControlNormalMode obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var is_Exists = db.GtDncn01.Where(d => d.DocumentId == obj.DocumentId && d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear).FirstOrDefault();
+                        if (is_Exists != null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Already Exists" };
+                        }
+
+                        var normal_mode = new GtDncn01
+                        {
+                            BusinessKey = obj.BusinessKey,
+                            DocumentId = obj.DocumentId,
+                            FinancialYear = obj.FinancialYear,
+                            StartDocNumber = obj.StartDocNumber,
+                            //CurrentDocNumber = obj.CurrentDocNumber,
+                            CurrentDocNumber = obj.StartDocNumber,
+                            //CurrentDocDate = DateTime.Now,
+                            CurrentDocDate = obj.CurrentDocDate,
+                            ActiveStatus = obj.ActiveStatus,
+                            CreatedBy = obj.UserID,
+                            CreatedOn = System.DateTime.Now,
+                            CreatedTerminal = obj.TerminalID
+                        };
+                        db.GtDncn01.Add(normal_mode);
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+
+                        return new DO_ReturnParameter() { Status = true, Message = "Saved Successfully." };
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+        public async Task<DO_ReturnParameter> UpdateDocumentControlNormalMode(DO_DocumentControlNormalMode obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        GtDncn01 trans_01 = db.GtDncn01.Where(d => d.DocumentId == obj.DocumentId && d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear).FirstOrDefault();
+                        if (trans_01 == null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Not Exists" };
+                        }
+                        trans_01.StartDocNumber = obj.StartDocNumber;
+                        trans_01.CurrentDocDate = obj.CurrentDocDate;
+                        trans_01.ModifiedBy = obj.UserID;
+                        trans_01.ModifiedOn = System.DateTime.Now;
+                        trans_01.ModifiedTerminal = obj.TerminalID;
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+
+                        return new DO_ReturnParameter() { Status = true, Message = "Updated Successfully." };
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+        public async Task<DO_ReturnParameter> ActiveOrDeActiveDocumentControlNormalMode(DO_DocumentControlNormalMode obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        var is_Exists = db.GtDncn01.Where(d => d.DocumentId == obj.DocumentId && d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear).FirstOrDefault();
+                        if (is_Exists == null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Not  Exists" };
+                        }
+                        is_Exists.ActiveStatus = obj.a_status;
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+                        if (obj.a_status == true)
+                            return new DO_ReturnParameter() { Status = true, Message = "Activated Successfully." };
+                        else
+                            return new DO_ReturnParameter() { Status = true, Message = "De Activated Successfully." };
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+        #endregion Document Control Normal Mode 
+
+       #region Document Control Transaction Mode  
+
+        public async Task<DO_ReturnParameter> InsertDocumentControlTransactionMode(DO_DocumentControlTransaction obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var is_Exists = db.GtDncn02.Where(d => d.DocumentId == obj.DocumentId && d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear
+                        && d.TransactionMode.ToUpper().Replace(" ", "") == obj.TransactionMode.ToUpper().Replace(" ", "")).FirstOrDefault();
+                        if (is_Exists != null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Already Exists" };
+                        }
+
+                        var dc_trns = new GtDncn02
+                        {
+                            BusinessKey = obj.BusinessKey,
+                            DocumentId = obj.DocumentId,
+                            FinancialYear = obj.FinancialYear,
+                            TransactionMode = obj.TransactionMode,
+                            StartDocNumber = obj.StartDocNumber,
+                            //CurrentDocNumber = obj.CurrentDocNumber,
+                            CurrentDocNumber = obj.StartDocNumber,
+                            //CurrentDocDate = DateTime.Now,
+                            CurrentDocDate = obj.CurrentDocDate,
+                            ActiveStatus = obj.ActiveStatus,
+                            CreatedBy = obj.UserID,
+                            CreatedOn = System.DateTime.Now,
+                            CreatedTerminal = obj.TerminalID
+                        };
+                        db.GtDncn02.Add(dc_trns);
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+
+                        return new DO_ReturnParameter() { Status = true, Message = "Saved Successfully." };
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+        public async Task<DO_ReturnParameter> UpdateDocumentControlTransactionMode(DO_DocumentControlTransaction obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        GtDncn02 trans_02 = db.GtDncn02.Where(d => d.DocumentId == obj.DocumentId && d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear
+                        && d.TransactionMode.ToUpper().Replace(" ", "") == obj.TransactionMode.ToUpper().Replace(" ", "")).FirstOrDefault();
+                        if (trans_02 == null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Not Exists" };
+                        }
+
+                        trans_02.StartDocNumber = obj.StartDocNumber;
+                        trans_02.CurrentDocDate = obj.CurrentDocDate;
+                        trans_02.ModifiedBy = obj.UserID;
+                        trans_02.ModifiedOn = System.DateTime.Now;
+                        trans_02.ModifiedTerminal = obj.TerminalID;
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+
+                        return new DO_ReturnParameter() { Status = true, Message = "Updated Successfully." };
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+        public async Task<List<DO_DocumentGeneration>> GetDocumentControlTransactionModebyBusinessKey(int businesskey)
+
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+
+
+                    var ds = db.GtDncn02.Where(x => x.BusinessKey == businesskey).Join(db.GtDccnst,
+                      x => x.DocumentId,
+                      y => y.DocumentId,
+                      (x, y) => new DO_DocumentGeneration
+                      {
+                          BusinessKey = x.BusinessKey,
+                          DocumentId = x.DocumentId,
+                          FinancialYear = x.FinancialYear,
+                          StartDocNumber = x.StartDocNumber,
+                          CurrentDocNumber = x.CurrentDocNumber,
+                          CurrentDocDate = x.CurrentDocDate,
+                          ActiveStatus = x.ActiveStatus,
+                          DocumentName = y.DocumentDesc,
+                          TransactionMode = x.TransactionMode
+                      }).ToListAsync();
+
+                    return await ds;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<DO_ReturnParameter> ActiveOrDeActiveDocumentControlTransactionMode(DO_DocumentControlTransaction obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var is_Exists = db.GtDncn02.Where(d => d.DocumentId == obj.DocumentId && d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear
+                        && d.TransactionMode.ToUpper().Replace(" ", "") == obj.TransactionMode.ToUpper().Replace(" ", "")).FirstOrDefault();
+                        if (is_Exists == null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Not Exists" };
+                        }
+
+                        is_Exists.ActiveStatus = obj.a_status;
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+                        if (obj.a_status == true)
+                            return new DO_ReturnParameter() { Status = true, Message = "Activated Successfully." };
+                        else
+                            return new DO_ReturnParameter() { Status = true, Message = "De Activated Successfully." };
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+        #endregion Document Control Transaction Mode
+
+       #region Voucher Generation
+        public async Task<List<DO_PaymentMode>> GetActivePaymentModes()
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+                    var ds = db.GtEcpyid.Where(x => x.ActiveStatus == true).Join(db.GtEcapcd,
+                        d => d.PaymentModeId,
+                        f => f.ApplicationCode,
+                        (d, f) => new DO_PaymentMode
+                        {
+                            PaymentId = d.PaymentId,
+                            PaymentMode = f.CodeDesc
+                        }).ToListAsync();
+
+                    return await ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<DO_PaymentVoucher>> GetActiveVouchers()
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+                    var ds = db.GtEcvyid.Where(x => x.ActiveStatus == true)
+                        .Select(r => new DO_PaymentVoucher
+                        {
+                            VoucherId = r.VoucherId,
+                            VoucherDesc = r.VoucherDesc
+                        }).OrderBy(o => o.VoucherDesc).ToListAsync();
+
+                    return await ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<DO_VoucherGeneration>> GetVoucherGenerationsbyBusinesskey(int businesskey)
+
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+                    var ds = await db.GtDnvcdt.Where(k => k.BusinessKey == businesskey).Join(db.GtEcvyid,
+                         x => x.VoucherId,
+                         y => y.VoucherId,
+                         (x, y) => new { x, y }).Join(db.GtEcpyid,
+                         a => a.x.PaymentId,
+                         p => p.PaymentId, (a, p) => new { a, p }).Join(db.GtEcapcd,
+                         b => b.p.PaymentModeId,
+                         c => c.ApplicationCode, (b, c) => new { b, c }).Select(r => new DO_VoucherGeneration
+                         {
+                             BusinessKey = r.b.a.x.BusinessKey,
+                             FinancialYear = r.b.a.x.FinancialYear,
+                             PaymentId = r.b.a.x.PaymentId,
+                             VoucherId = r.b.a.x.VoucherId,
+                             VoucherType = r.b.a.x.VoucherType,
+                             StartVocucherNumber = r.b.a.x.StartVocucherNumber,
+                             CurrentVoucherNumber = r.b.a.x.CurrentVoucherNumber,
+                             CurrentVoucherDate = r.b.a.x.CurrentVoucherDate,
+                             CreditDebitId = r.b.a.x.CreditDebitId,
+                             UsageStatus = r.b.a.x.UsageStatus,
+                             ActiveStatus = r.b.a.x.ActiveStatus,
+                             Voucher = r.b.a.y.VoucherDesc,
+                             PaymentMode = r.c.CodeDesc
+
+                         }).ToListAsync();
+
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<DO_ReturnParameter> InsertIntoVoucherGeneration(DO_VoucherGeneration obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        var is_Exists = db.GtDnvcdt.Where(d => d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear && d.PaymentId == obj.PaymentId
+                        && d.VoucherId == obj.VoucherId && d.VoucherType.ToUpper().Replace(" ", "") == obj.VoucherType.ToUpper().Replace(" ", "")).FirstOrDefault();
+
+                        if (is_Exists != null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Already Exists" };
+                        }
+
+                        var pv_gen = new GtDnvcdt
+                        {
+                            BusinessKey = obj.BusinessKey,
+                            FinancialYear = obj.FinancialYear,
+                            PaymentId = obj.PaymentId,
+                            VoucherId = obj.VoucherId,
+                            VoucherType = obj.VoucherType,
+                            StartVocucherNumber = obj.StartVocucherNumber,
+                            //CurrentVoucherNumber=obj.CurrentVoucherNumber,
+                            CurrentVoucherNumber = obj.StartVocucherNumber,
+                            CurrentVoucherDate = obj.CurrentVoucherDate,
+                            CreditDebitId = obj.CreditDebitId,
+                            UsageStatus = obj.UsageStatus,
+                            ActiveStatus = obj.ActiveStatus,
+                            FormId = obj.FormId,
+                            CreatedBy = obj.UserID,
+                            CreatedOn = System.DateTime.Now,
+                            CreatedTerminal = obj.TerminalID
+                        };
+                        db.GtDnvcdt.Add(pv_gen);
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+
+                        return new DO_ReturnParameter() { Status = true, Message = "Saved Successfully." };
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+        public async Task<DO_ReturnParameter> UpdateVoucherGeneration(DO_VoucherGeneration obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        var pv_gen = db.GtDnvcdt.Where(d => d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear && d.PaymentId == obj.PaymentId
+                        && d.VoucherId == obj.VoucherId && d.VoucherType.ToUpper().Replace(" ", "") == obj.VoucherType.ToUpper().Replace(" ", "")).FirstOrDefault();
+
+                        if (pv_gen == null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Not Exists" };
+                        }
+                        pv_gen.StartVocucherNumber = obj.StartVocucherNumber;
+                        //pv_gen.CurrentVoucherNumber=obj.CurrentVoucherNumber;
+                        pv_gen.CurrentVoucherNumber = obj.StartVocucherNumber;
+                        pv_gen.CurrentVoucherDate = obj.CurrentVoucherDate;
+                        pv_gen.CreditDebitId = obj.CreditDebitId;
+                        pv_gen.UsageStatus = obj.UsageStatus;
+                        pv_gen.ActiveStatus = obj.ActiveStatus;
+                        pv_gen.ModifiedBy = obj.UserID;
+                        pv_gen.ModifiedOn = System.DateTime.Now;
+                        pv_gen.ModifiedTerminal = obj.TerminalID;
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+
+                        return new DO_ReturnParameter() { Status = true, Message = "Updated Successfully." };
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+        public async Task<DO_ReturnParameter> ActiveOrDeActiveVoucherGeneration(DO_VoucherGeneration obj)
+        {
+            using (var db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var pv_gen = db.GtDnvcdt.Where(d => d.BusinessKey == obj.BusinessKey && d.FinancialYear == obj.FinancialYear && d.PaymentId == obj.PaymentId
+                                                && d.VoucherId == obj.VoucherId && d.VoucherType.ToUpper().Replace(" ", "") == obj.VoucherType.ToUpper().Replace(" ", "")).FirstOrDefault();
+
+                        if (pv_gen == null)
+                        {
+                            return new DO_ReturnParameter() { Status = false, Message = "Not  Exists" };
+                        }
+                        pv_gen.ActiveStatus = obj.a_status;
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+                        if (obj.a_status == true)
+                            return new DO_ReturnParameter() { Status = true, Message = "Voucher Generation Activated Successfully." };
+                        else
+                            return new DO_ReturnParameter() { Status = true, Message = "Voucher Generation De Activated Successfully." };
+
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        dbContext.Rollback();
+                        throw new Exception(CommonMethod.GetValidationMessageFromException(ex));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+        #endregion Voucher Generation
+       
+    }
+}

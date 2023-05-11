@@ -1,0 +1,12 @@
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\bin\Debug\netcoreapp2.2\eSyaDocumentControl.IF.deps.json
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\bin\Debug\netcoreapp2.2\eSyaDocumentControl.IF.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\bin\Debug\netcoreapp2.2\eSyaDocumentControl.IF.pdb
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\bin\Debug\netcoreapp2.2\eSyaDocumentControl.DO.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\bin\Debug\netcoreapp2.2\eSyaDocumentControl.DO.pdb
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\obj\Debug\netcoreapp2.2\eSyaDocumentControl.IF.csprojAssemblyReference.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\obj\Debug\netcoreapp2.2\eSyaDocumentControl.IF.csproj.CoreCompileInputs.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\obj\Debug\netcoreapp2.2\eSyaDocumentControl.IF.AssemblyInfoInputs.cache
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\obj\Debug\netcoreapp2.2\eSyaDocumentControl.IF.AssemblyInfo.cs
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\obj\Debug\netcoreapp2.2\eSyaDocumentControl.IF.csproj.CopyComplete
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\obj\Debug\netcoreapp2.2\eSyaDocumentControl.IF.dll
+D:\OfficeWorkingProjects\AllWEBAPI\eSyaDocumentControl.WebAPI\eSyaDocumentControl.IF\obj\Debug\netcoreapp2.2\eSyaDocumentControl.IF.pdb
